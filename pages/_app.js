@@ -1,3 +1,4 @@
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { SnackbarProvider } from 'notistack'
 import React from 'react'
 import { useEffect } from "react"
@@ -17,7 +18,9 @@ function MyApp({Component,pageProps}){
             <UserContextProvider>
             <CartContextProvider>
                 <SnackbarProvider anchorOrigin={{vertical:'top', horizontal:'center'}}>
-                <Component {...pageProps} />
+                    <PayPalScriptProvider>
+                        <Component {...pageProps} />
+                    </PayPalScriptProvider>
                 </SnackbarProvider>
             </CartContextProvider>
             </UserContextProvider>

@@ -141,10 +141,20 @@ function Cart() {
                                         <Divider />
                                     </ListItem>
                                     <ListItem>
-                                    <Button fullWidth onClick={checkoutHandler} >
+                                    
+                                    <Button fullWidth variant="contained" color="primary" onClick={checkoutHandler} >
                                             Checkout
                                        </Button>
                                     </ListItem>
+                                    <Typography align="center">or</Typography>
+                                    <ListItem>
+                                    <Button fullWidth>
+                                                <NextLink href="/">
+                                                    continue shopping
+                                                </NextLink>
+                                    </Button>
+                                    </ListItem>
+                                    
                                 </List>
                             </Card>
                         </Grid>

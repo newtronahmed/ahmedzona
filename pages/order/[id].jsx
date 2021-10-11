@@ -28,6 +28,7 @@ import {
   import { getError } from "../../utils/functions";
   import { useUserContext } from "../../context/userContext";
   import Cookies from "js-cookie";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
   
   const reducer = (state,action) =>{
     switch (action.type) {
@@ -43,6 +44,22 @@ import {
             return {
                 ...state,loading:false,error:action.payload
             }
+        case "PAY_REQUEST":
+            return {
+                ...state,loadingPay:true
+            }
+        case "PAY_SUCCESS":
+            return {
+                ...state,loadingPay:false, successPay:true
+            }
+        case "PAY_FAIL":
+            return {
+                ...state,loadingPay:false, successPay:false,
+            }
+        case "PAY_RESET":
+            return {
+                ...state,loadingPay:false, successPay:false
+            }
         default:
             state;
     }
@@ -51,8 +68,11 @@ import {
     // const [cart] = useCartContext();
     const router = useRouter()
     // const [loading,setLoading] = useState(false)
-    const [{loading, error, order},dispatch] = useReducer(reducer,{loading:true, error:'', order:{}})
+    const [{loading, error, order , successPay},dispatch] = useReducer(reducer,{loading:true, error:'', order:{} , successPay:false})
     const [userContext] = useUserContext()
+    //paypal gives us a reducer called use Paypal reducer
+    const [{isPending},paypalDispatch] = usePayPalScriptReducer()
+    
     // const { shippingInfo, paymentMethod } = cart;
     const {enqueueSnackbar, closeSnackbar} = useSnackbar()
     const orderId = params.id
@@ -79,11 +99,36 @@ import {
         console.log("order",order)
 
       }
-
-      if(!order._id || (order._id && order._id !== params.id)){
+//fetch order when order is not defined or orderId is not equal to current orderid in the query
+      if(!order._id || successPay || (order._id && order._id !== params.id)){
           fetchOrder()
+          if(successPay){
+            dispatch({type:"PAY_RESET"})
+          }
+      }else{
+        //load paypal from my api
+        try{
+
+          let loadPaypalScript = async () =>{
+            const {data:clientId} = await axios.get('/api/keys/paypal',{
+              headers:{
+                authorization:`Bearer ${userContext.user.token}`
+              }
+            })
+          }
+          //dispatch paypal action to set client id
+          paypalDispatch({type:"resetOptions",value:{
+            "client-id":clientId
+          }})
+  
+          //set paypaal loading staqtus to true
+          paypalDispatch({type:"setLoadingStatus",value:"pending"})
+        }catch(err){
+          console.log(error)
+        }
       }
-    }, [order])
+
+    }, [order,successPay])
 
     const {cartItems,
         shippingInfo,
@@ -91,7 +136,40 @@ import {
         paymentMethod,
         tax,
         shippingPrice,
-        total,isDelivered, isPaid, paid} = order
+        total,isDelivered, isPaid, paidAt,deliveredAt} = order
+//create order function has data and action as parameters
+    const createOrder = (data, action) =>{
+      return action.order.create({
+        purchase_units:[
+          {
+            amount:{value: total}
+          }
+        ]
+      }).then(orderID=> orderID)
+    }
+//onApprove of order , change status in the database
+
+    const onApprove = (data,action) => {
+      return action.order.capture().then(async function (details){
+        try{
+          dispatch({type:"PAY_REQUEST"})
+          const {data} = await axios.put(`/api/order/${params.id}/pay`, details , {
+            headers:{
+              authorization:`Bearer ${userContext.user.token}`
+            }
+          })
+          dispatch({type:"PAY_SUCCESS" , payload:data})
+          enqueueSnackbar("Order Payment successful",{variant:"success"})
+        }catch(err){
+          dispatch({type:"PAY_FAIL"})
+          enqueueSnackbar(getError(err),{variant:"error"})
+        }
+      })
+    }
+
+    const onError = (err) =>{
+      enqueueSnackbar(getError(err),{variant:"error"})
+    }
 
     // const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
     // const itemsPrice = cartItems.reduce(
@@ -153,7 +231,7 @@ import {
                   </Typography>
                 </ListItem>
                 <ListItem>
-                  <Typography >Status: {isDelivered ? "Delivered" : "Not devlivered"}</Typography>
+                  <Typography >Status: {isDelivered ? "Delivered at "+ deliveredAt  : "Not devlivered"}</Typography>
                 </ListItem>
 
               </List>
@@ -167,7 +245,7 @@ import {
                   <Typography>{paymentMethod}</Typography>
                 </ListItem>
                 <ListItem>
-                  <Typography >Status: {isPaid ? "You paid" + paid : "No payment"}</Typography>
+                  <Typography >Status: {isPaid ? "You paid at" + paidAt : "No payment payment made"}</Typography>
                 </ListItem>
               </List>
             </Card>
@@ -283,6 +361,13 @@ import {
                 <ListItem>
                   <Divider />
                 </ListItem>
+                {
+                  !isPaid && (
+                    <ListItem>
+                     { isPending ? <CircularProgress /> : <div style={{width:'100%'}}><PayPalButtons onApprove={onApprove} createOrder={createOrder} onError={onError} /></div> }
+                    </ListItem>
+                  )
+                }
                 {/* <ListItem>
                 <Button fullWidth color="primary" disabled={loading} variant="contained" onClick={handleOrder} style={{position:"relative"}} >
                     {loading ? <CircularProgress size={24} style={{color:"white"}} /> : "Place Order"}

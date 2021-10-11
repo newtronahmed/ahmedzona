@@ -28,6 +28,7 @@ import { useSnackbar } from "notistack";
 import { getError } from "../../utils/functions";
 import { useUserContext } from "../../context/userContext";
 import Cookies from "js-cookie";
+import StepWizard from "../../components/stepWizard";
 
 function Order() {
   const [cart, dispatch] = useCartContext();
@@ -83,6 +84,7 @@ function Order() {
 
   return (
     <Layout title="Your cart">
+      <StepWizard activeStep={3} />
       <Typography variant="h1">Shopping Cart</Typography>
       <Grid container spacing={2}>
         <Grid item md={9} xs={12}>

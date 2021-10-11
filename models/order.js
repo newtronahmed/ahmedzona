@@ -78,6 +78,17 @@ const OrderSchema = mongoose.Schema({
     },
     deliveredAt:{
         type:Date,
+    },
+    paymentResults:{
+        id:{
+            type:String
+        },
+        status:{
+            type:String
+        },
+        email_address:{
+            type:String
+        }
     }
 
 },{timestamps:true})

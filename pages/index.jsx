@@ -1,15 +1,18 @@
-import { Button, Card, CardActionArea, CardContent, CardMedia, Typography , Grid, CardActions } from "@material-ui/core"
+import { Button, Card, CardActionArea, CardContent, CardMedia, Typography , Grid, CardActions, IconButton } from "@material-ui/core"
 import Layout from "../components/layout"
 // import {data} from '../utils/data'
+import {useState} from 'react'
 import Product from "../models/product"
 import {useRouter} from 'next/router'
 import db from "../utils/db"
 import NextLink from 'next/link'
 import { useCartContext } from "../context/cartContext"
 import axios from 'axios'
+import {HiOutlineHeart , HiHeart} from 'react-icons/hi'
 function HomePage({products}) {
   const router = useRouter()
   const [cart,dispatch] = useCartContext()
+  const [favourites,setFavourites] = useState([])
   const addToCart = async (item) =>{
     const {data} = await axios.get("/api/products/"+item._id)
     if(!data.countInStock > 0){
@@ -46,6 +49,12 @@ function HomePage({products}) {
                   <CardActions>
                     <Typography variant="h6">${each.price}</Typography>
                     <Button size="small" color="primary" onClick={()=>addToCart(each)} >Add to cart</Button>
+                    <IconButton onClick={()=>setFavourites([...favourites , each._id])}> 
+                      {
+                        favourites.includes(each._id) ? <HiHeart style={{color:'red'}} /> : <HiOutlineHeart />
+                        
+                      }
+                    </IconButton>
                   </CardActions>
                 </Card>
               </Grid>

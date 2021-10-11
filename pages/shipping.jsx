@@ -25,7 +25,7 @@ import StepWizard from "../components/stepWizard";
   function Shipping() {
     const classes = useStyles();
     // const [credentials,setCredentials]= useState({email:'', password:'', name:'' , confirmPassword:''})
-    // const [state, dispatc] = useUserContext()
+    const [state, dispatc] = useUserContext()
     const [cart, dispatch] = useCartContext()
     const {shippingInfo} = cart;
     const router = useRouter()
@@ -39,9 +39,9 @@ import StepWizard from "../components/stepWizard";
         country:shippingInfo?.country
     }})
     React.useEffect(()=>{
-    //   if(state.user){
-    //     router.push('/')
-    //   }
+      if(!state.user){
+        router.push(`/login?redirect=/shipping`)
+      }
     //   console.log(shippingInfo,"shipping info")
     },[])
     // console.log(redirect,'redirect')
