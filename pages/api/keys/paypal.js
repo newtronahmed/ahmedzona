@@ -1,5 +1,5 @@
 import nextConnect from "next-connect";
-import db from '../../../../utils/db'
+import db from "../../../utils/db";
 // import Order from "../../../../models/order";
 // import jwt from 'jsonwebtoken'
 import { onError } from "../../../../utils/functions";
