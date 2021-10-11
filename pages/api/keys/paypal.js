@@ -2,8 +2,8 @@ import nextConnect from "next-connect";
 import db from "../../../utils/db";
 // import Order from "../../../../models/order";
 // import jwt from 'jsonwebtoken'
-import { onError } from "../../../../utils/functions";
-import auth from "../../../../utils/auth";
+import { onError } from "../../../utils/functions";
+import auth from "../../../utils/auth";
 const handler = nextConnect({
     onError,
 })
