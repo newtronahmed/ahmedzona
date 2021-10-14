@@ -12,11 +12,6 @@ import mongoose from "mongoose";
     }
     
 }
-async function connect2 () {
-    await mongoose.connect(process.env.MONGODB_URI , {
-        useNewUrlParser: true, useUnifiedTopology: true 
-    })
-}
 
 function convertDocToObject (doc){
     doc._id = doc._id.toString(),
@@ -25,5 +20,5 @@ function convertDocToObject (doc){
     return doc;
 }
 
-export  default {connect , convertDocToObject,connect2};
+export  default {connect , convertDocToObject};
 
