@@ -114,12 +114,14 @@ function ProductScreen({product}) {
 export default ProductScreen;
 
 export async function getServerSideProps(context){
-  db.connect()
+  // db.connect()
   const {params:{slug}} = context
-  const product = await Product.findOne({slug}).lean()
+  // const product = await Product.findOne({slug}).lean()
+  const res  = await fetch(`${process.env.APP_URL}api/products/single/${slug}`)
+  const product = await res.json()
   return{
     props:{
-      product: db.convertDocToObject(product)
+      product
     }
   }
 }
