@@ -70,7 +70,7 @@ function HomePage({products}) {
 export default HomePage
 export async function getServerSideProps (){
   // await db.connect()
-  const res = await fetch('http://localhost:3000/api/products')
+  const res = await fetch(`${process.env.APP_URL}api/products`)
   const products  = await res.json()
   // console.log(data)
   return {
