@@ -69,11 +69,13 @@ function HomePage({products}) {
 
 export default HomePage
 export async function getServerSideProps (){
-  await db.connect()
-  const products = await Product.find({}).lean()
+  // await db.connect()
+  const res = await fetch('http://localhost:3000/api/products')
+  const products  = await res.json()
+  // console.log(data)
   return {
     props: {
-      products: products.map(db.convertDocToObject)
+      products
     }
   }
 }
