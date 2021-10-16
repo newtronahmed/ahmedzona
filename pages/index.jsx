@@ -25,6 +25,14 @@ function HomePage({products}) {
     dispatch({type:"ADD_TO_CART", payload:{...item, quantity}})
 
   }
+  const handleFavourite = (id) =>{
+    if(favourites.includes(id) ){
+      let filtered =favourites.filter(each=>each._id === id)
+      setFavourites([...filtered])
+    }else {
+      setFavourites([...favourites , id])
+    }
+  }
   return (
     <Layout>
       <Typography variant="h1">
@@ -49,7 +57,7 @@ function HomePage({products}) {
                   <CardActions>
                     <Typography variant="h6">${each.price}</Typography>
                     <Button size="small" color="primary" onClick={()=>addToCart(each)} >Add to cart</Button>
-                    <IconButton onClick={()=>setFavourites([...favourites , each._id])}> 
+                    <IconButton onClick={()=>handleFavourite(each._id)}> 
                       {
                         favourites.includes(each._id) ? <HiHeart style={{color:'red'}} /> : <HiOutlineHeart />
                         

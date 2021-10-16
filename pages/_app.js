@@ -1,16 +1,34 @@
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { SnackbarProvider } from 'notistack'
 import React from 'react'
-import { useEffect } from "react"
+import { useEffect , useState} from "react"
 import CartContextProvider from '../context/cartContext'
 import ThemeContextProvider from '../context/themeContext'
 import UserContextProvider from '../context/userContext'
+import Router from 'next/router'
 function MyApp({Component,pageProps}){
+    const [isLoading,setLoading] = useState(false)
+    const start = () =>{
+        setLoading(true)
+        console.log("loaidng")
+    }
+    const end = () =>{
+        setLoading(false)
+        
+    }
     useEffect(()=>{
         const jssStyles = document.querySelector('#jss-server-side')
         if(jssStyles){
             jssStyles.parentElement.removeChild(jssStyles)
         }
+        Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    Router.events.on("routeChangeError", end);
+    return ()=>{
+        Router.events.off("routeChangeStart", start);
+        Router.events.off("routeChangeComplete", end);
+        Router.events.off("routeChangeError", end);
+    }
     },[])
     return (
 
@@ -19,7 +37,7 @@ function MyApp({Component,pageProps}){
             <CartContextProvider>
                 <SnackbarProvider anchorOrigin={{vertical:'top', horizontal:'center'}}>
                     <PayPalScriptProvider>
-                        <Component {...pageProps} />
+                       {isLoading ? <div>loading ....</div> : <Component {...pageProps} />}
                     </PayPalScriptProvider>
                 </SnackbarProvider>
             </CartContextProvider>
