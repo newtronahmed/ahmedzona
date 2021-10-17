@@ -10,7 +10,12 @@ handler.post( async function  (req,res){
     const userExists = await User.findOne({email})
     if(userExists) return res.status(400).json({message:"Email is already signed up"})
      const newUser = await User.create({name,email, isAdmin:false , password:bcrypt.hashSync(password) })
-    const token =  auth.signToken(newUser)
+     const token = auth.signToken({
+        _id:user._id,
+        name:user.name,
+        email:user.email,
+        isAdmin:user.isAdmin
+    })
      res.status(200).json({_id: newUser._id, name:newUser.name, email:newUser.email , token , isAdmin:false})
     
 })

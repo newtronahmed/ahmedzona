@@ -42,7 +42,7 @@ console.log(credentials)
       const {data} = await axios.post('/api/users/login',credentials) 
       // console.log(data)
       dispatch({type:"Login",payload:data})
-      console.log(redirect)
+      // console.log(redirect)
       Cookies.set('user',JSON.stringify(data))
       router.push(redirect || '/')
     } catch (error) {

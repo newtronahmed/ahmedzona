@@ -19,7 +19,13 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         default: false,
         required:true,
-    }
+    },
+    favourites:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"Product"
+        }
+    ]
 
 })
 

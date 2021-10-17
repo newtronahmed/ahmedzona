@@ -15,7 +15,12 @@ handler.post(async function (req,res){
 
     if(!passwordMatch) return res.status(400).send({message:"Password doesn't match"})
 
-    const token = auth.signToken(user)
+    const token = auth.signToken({
+        _id:user._id,
+        name:user.name,
+        email:user.email,
+        isAdmin:user.isAdmin
+    })
     res.send({
         name:user.name,
         email:user.email,

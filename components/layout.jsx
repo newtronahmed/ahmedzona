@@ -140,7 +140,10 @@ export default function Layout({ children , title , description}) {
           </div>
         </Toolbar>
       </AppBar>
-      <Container className={classes.main}>{children}</Container>
+      <Container className={classes.main}>
+        <CssBaseline/>
+        {children}
+      </Container>
       <footer className={classes.footer}>
         <Typography>All rights reserved 2021</Typography>
       </footer>
