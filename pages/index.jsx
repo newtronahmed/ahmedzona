@@ -25,9 +25,8 @@ function HomePage({products}) {
     const itemExists = cart.cartItems.find(x=>x._id === item._id)
     let quantity = itemExists ? ++itemExists.quantity : 1
     dispatch({type:"ADD_TO_CART", payload:{...item, quantity}})
-
   }
-  // console.log(favourites)
+  // console.log(user)
   const handleFavourite = async (id) =>{
     if(!favourites.includes(id) ){
       // let filtered =favourites.filter(each=>each._id === id)
@@ -65,7 +64,7 @@ function HomePage({products}) {
         console.log(error)
       }
     }
-    fetchFavourites()
+    user && fetchFavourites()
     // console.log(favourites)
   },[])
   return (
@@ -93,12 +92,12 @@ function HomePage({products}) {
                     <Typography variant="h6">${each.price}</Typography>
                     <Button type="submit" size="small" color="primary" onClick={()=>addToCart(each)} >Add to cart</Button>
                     
-                    <IconButton onClick={()=>handleFavourite(each._id)}> 
+                    {user && <IconButton onClick={()=>handleFavourite(each._id)}> 
                       {
                         favourites.includes(each._id) ? <HiHeart style={{color:'red'}} /> : <HiOutlineHeart />
                         
                       }
-                    </IconButton>
+                    </IconButton>}
                   </CardActions>
                 </Card>
               </Grid>

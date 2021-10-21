@@ -11,8 +11,8 @@ const handler = nextConnect({
 handler.use(auth.authMiddleware)
 handler.post(async function(req,res){
     // res.status(400).json({message:{...req.body}})
-    console.log(req.user._doc._id)
-    const order = await Order.create({...req.body , user: req.user._doc._id})
+    // console.log(req.user._id)
+    const order = await Order.create({...req.body , user: req.user._id})
     res.send({order})
     // res.status(201).json({...newOrder})
 })

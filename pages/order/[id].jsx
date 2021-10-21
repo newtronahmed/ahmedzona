@@ -90,13 +90,13 @@ import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
                 }
             })
             dispatch({type:"FETCH_SUCCESS",payload:data.order})
-            console.log(data)
+            // console.log(data)
         } catch (error) {
             console.log(error)
             dispatch({type:"FETCH_FAILURE",payload:getError(error)})
             // enqueueSnackbar(getError(error))
         }  
-        console.log("order",order)
+        // console.log("order",order)
 
       }
 //fetch order when order is not defined or orderId is not equal to current orderid in the query
