@@ -60,18 +60,7 @@ console.log(credentials)
         <form className={classes.form} >
           <List>
             <ListItem>
-              {/* <TextField
-                label="Email"
-                id="email"
-                inputProps={{ type: "email" }}
-                variant="outlined"
-                fullWidth
-                // required
-                ref={register({required:"Email is required" })}
-                // value={credentials.email}
-                helperText={errors.email ? errors.email.message : ''}
-                onChange={(e)=>setCredentials({...credentials, email:e.target.value})}
-              ></TextField> */}
+              
               <CustomTextField name="email" type={"email"} label="Email" rules={{
                 required:'First name is required',
                 pattern:{value:/^[^@]+@[^@]+\.[^@.]{2,}$/,message:'Please input a valid email'}

@@ -11,7 +11,9 @@ import {
   Badge,
   Button,
   Menu,
-  MenuItem
+  MenuItem,
+  InputBase,
+  IconButton
 } from '@material-ui/core'
 import Cookies from "js-cookie";
 import {createTheme , ThemeProvider} from '@material-ui/core/styles';
@@ -21,14 +23,15 @@ import NextLink from "next/link";
 import { useThemeContext } from "../context/themeContext";
 import { useCartContext } from "../context/cartContext";
 import { useUserContext } from "../context/userContext";
-
+import SearchBox from './searchBox'
+import { FaCartArrowDown, FaSearch, FaUser} from "react-icons/fa";
 // import { ThemeContext } from "../context/themeContext";
 export default function Layout({ children , title , description}) {
   const classes = useStyles();
   const router = useRouter()
   // const [state,dispatch] = useContext(ThemeContext)
   const [state,dispatch] = useThemeContext()
-  const [userinfo,userDispatch] = useUserContext()
+  const [userContext,userDispatch] = useUserContext()
   const [cart,cartDispatch] = useCartContext()
   const {darkMode} = state
   // console.log(darkMode)
@@ -38,6 +41,33 @@ export default function Layout({ children , title , description}) {
   }
   const handleClose = () =>{
     setAnchorEl(null)
+  }
+  const AppbarMenu = () =>{
+   return (
+      <>
+      <Button
+      id="navbar-menu"
+      aria-controls="navbar-menu"
+      aria-haspopup="true"
+      aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+      onClick={handleNavbarMenuClick}
+      className={classes.navbarButton}
+      >
+        {userContext.user.name}
+      </Button>
+      <Menu
+      id="navbar-menu"
+      aria-labelledby="navbar-button"
+      anchorEl={anchorEl}
+      open={Boolean(anchorEl)}
+      // onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+      </Menu>
+      </>
+    )
   }
   const handleLogout = () => {
     handleClose()
@@ -99,41 +129,24 @@ export default function Layout({ children , title , description}) {
           <div className={classes.grow}>
           </div>
           <div>
-            <Switch checked={darkMode} onChange={handleModeSwitch} ></Switch>
+            <Switch size="small" checked={darkMode} onChange={handleModeSwitch} ></Switch>
+            <NextLink href="/search" passHref>
+            <IconButton >
+              <FaSearch size={18} />
+            </IconButton>
+            </NextLink>
               <NextLink href="/cart" passHref>
                   <Link>
                     {
-                      cart.cartItems.length > 0 ? <Badge color="secondary" badgeContent={cart.cartItems.length} >Cart</Badge>: "Cart"
+                      cart.cartItems.length > 0 ? <Badge color="secondary" badgeContent={cart.cartItems.length} ><FaCartArrowDown /> </Badge> : <IconButton><FaCartArrowDown  size={18}/></IconButton>
                     }
                   </Link>
               </NextLink>
               <NextLink href="/login" passHref>
                 {
-                  userinfo.user ? (
-                    <>
-                    <Button
-                    id="navbar-menu"
-                    aria-controls="navbar-menu"
-                    aria-haspopup="true"
-                    aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
-                    onClick={handleNavbarMenuClick}
-                    className={classes.navbarButton}
-                    >
-                      {userinfo.user.name}
-                    </Button>
-                    <Menu
-                    id="navbar-menu"
-                    aria-labelledby="navbar-button"
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    // onClose={handleClose}
-                    >
-                      <MenuItem onClick={handleClose}>Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>My account</MenuItem>
-                      <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                    </Menu>
-                    </>
-                  ): <Link>login</Link>
+                  userContext.user ? <IconButton><FaUser size={18} /></IconButton>: <Link>
+                Login
+                  </Link>
                 }
                   
               </NextLink>

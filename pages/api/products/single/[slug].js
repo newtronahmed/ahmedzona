@@ -5,7 +5,7 @@ import db from "../../../../utils/db";
 const handler = nextConnect()
 
 handler.get(async function (req,res){
-    const product = await Product.findOne({slug:req.query.slug}).lean()
+    const product = await Product.findOne({slug:req.query.slug}).populate('category').lean()
     // console.log("product",product)
     res.json(db.convertDocToObject(product))
 })

@@ -16,4 +16,15 @@ handler.post(async function(req,res){
     res.send({order})
     // res.status(201).json({...newOrder})
 })
+
+handler.get(async function (req,res){
+    // console.log('req.user',req.user)
+    try{
+        const orders = await Order.find({user: req.user._id})
+        // console.log(orders)
+        res.send({orders})
+    }catch(e){
+        console.log(e)
+    }
+})
 export default db.connect(handler)

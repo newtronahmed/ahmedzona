@@ -36,7 +36,7 @@ function Cart() {
                         Cart is Empty
                         <NextLink href="/" passHref>
                             <Link>
-                                <Typography>Start shopping</Typography>
+                                <Typography>Add some items to your cart</Typography>
                             </Link>
                         </NextLink>
                     </div>

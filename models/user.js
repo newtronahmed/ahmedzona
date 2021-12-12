@@ -25,6 +25,12 @@ const UserSchema = mongoose.Schema({
             type:mongoose.Schema.Types.ObjectId,
             ref:"Product"
         }
+    ],
+    review:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'Review'
+        }
     ]
 
 })

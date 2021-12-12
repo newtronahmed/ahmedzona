@@ -1,5 +1,11 @@
 import mongoose from 'mongoose'
 
+export const Category = mongoose.models?.Category || mongoose.model('Category',{
+    name:String
+})
+export const Brand = mongoose.models?.Brand || mongoose.model('Brand',{
+    name:String
+})
 const ProductSchema = mongoose.Schema({
     name:{
         type: String,
@@ -32,22 +38,41 @@ const ProductSchema = mongoose.Schema({
         type: String,
         required:true,
     },
+    
     brand:{
-        type: String,
-        required:true,
-    },
-    category:{
-        type: String,
-        required:true,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Brand'
     },
     countInStock:{
         type: String,
         required:true,
         default:0
-    }
+    },
+    category:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Category'
+    },
+    reviews:[new mongoose.Schema({
+        message: {
+            type: String,
+            required: true,
+            trim:true,
+        },
+        owner:{
+            type: String,
+            required: true,
+        },
+        createdAt:{
+            type:Date,
+            default:Date.now()
+        }
+
+    })]
+
 },{
     timestamps:true,
 });
 
 const Product = mongoose.models?.Product ||  mongoose.model("Product",ProductSchema)
+
 export default Product;

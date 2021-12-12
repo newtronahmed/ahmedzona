@@ -14,78 +14,113 @@ export const data = {
             isAdmin:false,
         }
     ],
+    reviews:[
+        {
+            owner:"619e970de87dda980b9be9a4" ,
+            message:"This is a review",
+            product: "619e970de87dda980b9be8a4"
+        },
+        {
+            message:"Another review from ahmed",
+            owner:"619e970de87ddad80b9be9a4",
+            product: "619e970de87dda980b9ce8a4"
+
+        }
+    ],
+    categories:[
+       {
+           name: "shirt",
+       },
+       {
+           name: "pant",
+       }
+    ],
+    brands:[
+        {
+            name:"nike",
+        },
+        {
+            name:'adidas'
+        }
+    ],
     products:[
         {
             name:"Free Shirt",
-            category:"Shirts",
+        
             slug:"Free-shirt-1",
             image:"/images/shirt.jpg",
             price:"30",
-            brand:"Nike",
-            numRating:"5",
+            brand:"619f4bb3de47bea16559e88d",
+            numRating:5,
             description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-            countInStock:"50",
+            countInStock:45,
             numReviews:"3",
+            category:"619f7853de47bea16559e8a3"
         },
         {
             name:"Free Shirt 2",
-            category:"Shirts",
+        
             slug:"Free-shirt-2",
             image:"/images/shirt.jpg",
             price:"40",
-            brand:"Nike",
-            numRating:"5",
+            brand:"619f4bb3de47bea16559e88d",
+            numRating:5,
             description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-            countInStock:"50",
+            countInStock:50,
             numReviews:"3",
+            category:"619f7853de47bea16559e8a3"
         },
         {
             name:"Free Shirt 3",
-            category:"Shirts",
+        
             slug:"Free-shirt-3",
             image:"/images/shirt.jpg",
             price:"90",
-            brand:"Nike",
-            numRating:"4",
+            brand:"619f4bb3de47bea16559e88d",
+            numRating:4,
             description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-            countInStock:"60",
+            countInStock:25,
             numReviews:"8",
+            category:"619f7853de47bea16559e8a3"
         },
         {
             name:"Free Shirt 4",
-            category:"Shirts",
+        
             slug:"Free-shirt-4",
             image:"/images/shirt.jpg",
             price:"70",
-            brand:"Nike",
-            numRating:"2",
+            brand:"619f4bb3de47bea16559e88d",
+            numRating:2,
             description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-            countInStock:"56",
+            countInStock:50,
             numReviews:"7",
+            category:"619e970de87dda980b9be8a4"
         },
         {
             name:"Free Shirt 5",
-            category:"Shirts",
+        
             slug:"Free-shirt-5",
             image:"/images/shirt.jpg",
             price:"80",
-            brand:"Nike",
-            numRating:"5",
+            brand:"619f4bb3de47bea16559e88d",
+            numRating:4,
             description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-            countInStock:"40",
+            countInStock:35,
             numReviews:"7",
+            category:"619f7853de47bea16559e8a3"
         },
         {
             name:"Free Shirt 6",
-            category:"Shirts",
+        
             slug:"Free-shirt-6",
             image:"/images/shirt.jpg",
             price:"80",
-            brand:"Nike",
-            numRating:"6",
+            brand:"619f4bb3de47bea16559e88e",
+            numRating:3,
             description:"Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-            countInStock:"30",
+            countInStock:40,
             numReviews:"3",
+            category:"619f7853de47bea16559e8a3"
         },
     ]
 }

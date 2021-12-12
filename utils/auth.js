@@ -12,7 +12,7 @@ function signToken (user){
 
 async function authMiddleware (req,res,next){
     const {authorization} = req.headers
-        
+    // console.log(authorization,'authorization')
         if(authorization) {
            const authToken = authorization.slice(7,authorization.length)
         
@@ -24,7 +24,8 @@ async function authMiddleware (req,res,next){
                 
             })
         }else {
-             res.status(403).json({message:"Token Not provided"})
+            // console.log('token not provided')
+              res.status(403).json({message:"Token Not provided"})
              
         }
         next()

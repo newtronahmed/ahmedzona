@@ -1,15 +1,18 @@
-import { Button, Card, CardActionArea, CardContent, CardMedia, Typography , Grid, CardActions, IconButton } from "@material-ui/core"
+import  { Button, Card, CardActionArea, CardContent, CardMedia, Typography , Grid, CardActions, IconButton } from "@material-ui/core"
 import Layout from "../components/layout"
 // import {data} from '../utils/data'
+import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import {useEffect, useState} from 'react'
 import Product from "../models/product"
 import {useRouter} from 'next/router'
 // import db from "../utils/db"
+import { Carousel } from "react-responsive-carousel"
 import NextLink from 'next/link'
 import { useCartContext } from "../context/cartContext"
 import axios from 'axios'
 import {HiOutlineHeart , HiHeart} from 'react-icons/hi'
 import { useUserContext } from "../context/userContext"
+import DetailCard from "../components/card"
 function HomePage({products}) {
   const router = useRouter()
   const [cart,dispatch] = useCartContext()
@@ -27,28 +30,7 @@ function HomePage({products}) {
     dispatch({type:"ADD_TO_CART", payload:{...item, quantity}})
   }
   // console.log(user)
-  const handleFavourite = async (id) =>{
-    if(!favourites.includes(id) ){
-      // let filtered =favourites.filter(each=>each._id === id)
-     let data = await fetch('/api/users/favourite/'+id,{
-        method:"POST",
-        headers:{
-          authorization: `Bearer ${user.token}`
-        }
-      }).then(res=>res.json())
 
-      setFavourites([...data.favourites])
-    }else {
-      let data= await fetch('/api/users/favourite/'+id,{
-        method:"DELETE",
-        headers:{
-          authorization: `Bearer ${user.token}`
-        }
-      }).then(res=>res.json())
-      // console.log(data)
-      setFavourites([...data.favourites])
-    }
-  }
   useEffect(()=>{
     async function fetchFavourites(){
 
@@ -69,6 +51,14 @@ function HomePage({products}) {
   },[])
   return (
     <Layout>
+      <Carousel>
+        <div>
+          <img src="/images/react-cover-page.png" alt="image" />
+        </div>
+        <div>
+          <img src="/images/shirt.jpg" alt="imge"  />
+        </div>
+      </Carousel>
       <Typography variant="h1">
         Products
       </Typography>
@@ -76,30 +66,8 @@ function HomePage({products}) {
         {
           products.map(each=>{
             return (
-              <Grid item key={each.name} md={4} >
-                <Card>
-                  <NextLink href={`/product/${each.slug}`} passHref>
-                  <CardActionArea>
-                    <CardMedia component="img" image={each.image} title={each.name}></CardMedia>
-                    <CardContent>
-                      <Typography>
-                        ${each.name}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  </NextLink>
-                  <CardActions>
-                    <Typography variant="h6">${each.price}</Typography>
-                    <Button type="submit" size="small" color="primary" onClick={()=>addToCart(each)} >Add to cart</Button>
-                    
-                    {user && <IconButton onClick={()=>handleFavourite(each._id)}> 
-                      {
-                        favourites.includes(each._id) ? <HiHeart style={{color:'red'}} /> : <HiOutlineHeart />
-                        
-                      }
-                    </IconButton>}
-                  </CardActions>
-                </Card>
+              <Grid item key={each.name} sm={6} lg={4} >
+                <DetailCard data={each} user={user} favourites={favourites} setFavourites={setFavourites} />
               </Grid>
             )
           })
@@ -114,7 +82,8 @@ export async function getServerSideProps (){
   // await db.connect()
   // console.log(process.env.APP_URL)
   try {
-    const products = await fetch(`${process.env.APP_URL}api/products`,{headers:{"User-Agent":"Chrome"}}).then(res=>res.json())
+    const response = await fetch(`${process.env.APP_URL}api/products`).then(res=>res.json())
+    const {products} = response;
     // const favourites = 
     // console.log(data)
     return {
