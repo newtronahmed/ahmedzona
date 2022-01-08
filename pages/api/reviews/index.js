@@ -20,9 +20,9 @@ handler.use(auth.authMiddleware).post(ErrorHandler(async function (req,res,next)
     }
     const newReview = {message: req.body.review , product:req.body.product, owner: req.user._id}
      await Review.create(newReview)
-     const product = await Product.findById(req.body.product)
-     product.reviews.push({name: req.user.name, message:req.body.review, owner: req.user.name})
-     const updatedProduct = await product.save()
-     res.send({status:"success" , message:"Your review has been added" , updatedReviews:updatedProduct.reviews})
+    //  const product = await Product.findById(req.body.product)
+    //  product.reviews.push({name: req.user.name, message:req.body.review, owner: req.user.name})
+    //  const updatedProduct = await product.save()
+     res.send({status:"success" , message:"Your review has been added" ,})
 }))
 export default db.connect(handler)

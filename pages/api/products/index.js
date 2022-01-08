@@ -29,7 +29,7 @@ handler.get(async function (req, res) {
 
   //if req.query has keyword aka search parameter , add to query
   if (req.query.keyword) {
-    let regex = new RegExp(req.query.keyword);
+    let regex = new RegExp(req.query.keyword,"i");
     query.find({ name: regex });
     queryObj.name = regex;
     // paginateQuery.name = regex

@@ -13,7 +13,7 @@ const ReviewSchema = mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref:'User'
     }
-}) 
+},{timestamps:true}) 
 
 const Review = mongoose.models?.Review || mongoose.model('Review', ReviewSchema) 
 export default Review;

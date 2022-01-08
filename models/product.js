@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-
+import Review from './reviews'
 export const Category = mongoose.models?.Category || mongoose.model('Category',{
     name:String
 })
@@ -52,26 +52,32 @@ const ProductSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category'
     },
-    reviews:[new mongoose.Schema({
-        message: {
-            type: String,
-            required: true,
-            trim:true,
-        },
-        owner:{
-            type: String,
-            required: true,
-        },
-        createdAt:{
-            type:Date,
-            default:Date.now()
-        }
+    // reviews:[new mongoose.Schema({
+    //     message: {
+    //         type: String,
+    //         required: true,
+    //         trim:true,
+    //     },
+    //     owner:{
+    //         type: String,
+    //         required: true,
+    //     },
+    //     createdAt:{
+    //         type:Date,
+    //         default:Date.now()
+    //     }
 
-    })]
+    // })]
 
 },{
     timestamps:true,
 });
+
+ProductSchema.virtual("reviews",{
+    ref:"Review",
+    foreignField:"product",
+    localField:"_id"
+})
 
 const Product = mongoose.models?.Product ||  mongoose.model("Product",ProductSchema)
 

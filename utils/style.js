@@ -31,6 +31,9 @@ export const useStyles = makeStyles((theme)=>({
         margin:'0 auto',
 
     },
+    white:{
+        color:'white',
+    },
     navbarButton:{
         color:'white',
         textTransform:'initial'
@@ -47,9 +50,20 @@ export const useStyles = makeStyles((theme)=>({
         borderRadius:1.5,
         // border:'1px solid white',
         // width:'100%'
+        '&:focus':{
+            border: '1px solid #131921'
+        }
     },
+
     searchContainer:{
         display:'flex',
         justifyContent:'space-between'
+    },
+    loadingContainer:{
+        height:'90vh',
+        width:'100%',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
     }
 }))

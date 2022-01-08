@@ -3,7 +3,7 @@ import Layout from "../components/layout"
 // import {data} from '../utils/data'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import {useEffect, useState} from 'react'
-import Product from "../models/product"
+// import Product from "../models/product"
 import {useRouter} from 'next/router'
 // import db from "../utils/db"
 import { Carousel } from "react-responsive-carousel"
@@ -53,7 +53,7 @@ function HomePage({products}) {
     <Layout>
       <Carousel>
         <div>
-          <img src="/images/react-cover-page.png" alt="image" />
+          <img src="/images/shirt.jpg" alt="image" />
         </div>
         <div>
           <img src="/images/shirt.jpg" alt="imge"  />
