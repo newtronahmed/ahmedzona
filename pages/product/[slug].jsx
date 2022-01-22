@@ -81,6 +81,7 @@ function ProductScreen({ product, reviews }) {
               width="640"
               height="640"
               layout="responsive"
+              className={classes.prodImage}
             ></Image>
             <div>
               <h1>Reviews</h1>
@@ -100,16 +101,16 @@ function ProductScreen({ product, reviews }) {
                     <Button type="submit" onClick={handleSubmit(addReview)}>Submit</Button>
                   </ListItem>
                 </List>
-              </form> : <div> Login to add a revie <NextLink href="/login" passHref><Link>Login</Link></NextLink> </div>}
+              </form> : <div> Login to add a review <NextLink href="/login" passHref><Link>Login</Link></NextLink> </div>}
             </div>
           </Grid>
           <Grid item md={3} >
             <List>
               <ListItem>
-                <Typography >Category :{product.category?.name}</Typography>
+                <Typography >Category : {product.category?.name ?? 'null'}</Typography>
               </ListItem>
               <ListItem>
-                <Typography>Brand : {product.brand}</Typography>
+                <Typography>Brand : {product.brand?.name ?? 'null'}</Typography>
               </ListItem>
               <ListItem>
                 <Typography>Rating : {product.numRating} stars ({product.numReviews} reviews) </Typography>

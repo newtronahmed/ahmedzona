@@ -35,17 +35,17 @@ function MyApp({ Component, pageProps }) {
     }, [])
     return (
 
-        <ThemeContextProvider>
-            <UserContextProvider>
-                <CartContextProvider>
-                    <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                        <PayPalScriptProvider>
+        <UserContextProvider>
+            <CartContextProvider>
+                <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                    <PayPalScriptProvider>
+                        <ThemeContextProvider>
                             {isLoading ? <Layout><PageLoading /></Layout> : <Component {...pageProps} />}
-                        </PayPalScriptProvider>
-                    </SnackbarProvider>
-                </CartContextProvider>
-            </UserContextProvider>
-        </ThemeContextProvider>
+                        </ThemeContextProvider>
+                    </PayPalScriptProvider>
+                </SnackbarProvider>
+            </CartContextProvider>
+        </UserContextProvider>
     )
 }
 export default MyApp;

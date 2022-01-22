@@ -4,10 +4,11 @@ import NextLink from 'next/link'
 import {useRouter} from 'next/router'
 import { useCartContext } from "../context/cartContext"
 import axios from 'axios'
-
+import { useStyles } from "../utils/style"
 export  default function DetailCard ({data, user, favourites=[],setFavourites}) {
   const [cart,dispatch] = useCartContext()
   const router = useRouter()
+  const classes= useStyles()
   const addToCart = async (item) =>{
     const {data} = await axios.get("/api/products/"+item._id)
     if(!data.countInStock > 0){
@@ -42,10 +43,10 @@ export  default function DetailCard ({data, user, favourites=[],setFavourites}) 
     }
   }
     return (
-        <Card>
+        <Card className={classes.card}>
           <NextLink href={`/product/${data.slug}`} passHref>
           <CardActionArea>
-            <CardMedia component="img" image={data.image} title={data.name}></CardMedia>
+            <CardMedia component="img" image={data.image} className={classes.cardImage} title={data.name}></CardMedia>
             <CardContent>
               <Typography>
                 {data.name} 

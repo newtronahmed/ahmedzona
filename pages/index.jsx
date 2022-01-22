@@ -1,4 +1,5 @@
 import  { Button, Card, CardActionArea, CardContent, CardMedia, Typography , Grid, CardActions, IconButton } from "@material-ui/core"
+// 1ED760
 import Layout from "../components/layout"
 // import {data} from '../utils/data'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
@@ -7,10 +8,10 @@ import {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
 // import db from "../utils/db"
 import { Carousel } from "react-responsive-carousel"
-import NextLink from 'next/link'
+// import NextLink from 'next/link'
 import { useCartContext } from "../context/cartContext"
 import axios from 'axios'
-import {HiOutlineHeart , HiHeart} from 'react-icons/hi'
+// import {HiOutlineHeart , HiHeart} from 'react-icons/hi'
 import { useUserContext } from "../context/userContext"
 import DetailCard from "../components/card"
 function HomePage({products}) {

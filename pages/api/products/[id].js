@@ -7,7 +7,7 @@ const handler = nextConnect()
 
 handler.get(async function (req,res , next){
     try{
-        const product = await Product.findById(req.query.id).populate('category').populate("reviews")
+        const product = await Product.findById(req.query.id).populate('category').populate("reviews").populate('brand')
         res.json({product , reviews:product.reviews})
     }catch(e){
         console.log(e)

@@ -18,7 +18,7 @@ export default function CustomTextField ({name,control,label,type,rules}) {
             value={value}
             fullWidth
             label={label}
-            autoFocus          
+            autoFocus         
             variant="outlined"
             error={Boolean(error)}
             inputProps={{type}}
