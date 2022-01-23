@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from "next/router";
 import Layout from "../../components/layout";
 import { Link, Typography, Grid, List, ListItem, Card, Button, CircularProgress } from "@material-ui/core";
-import { useStyles } from "../../utils/style";
 // import Product from "../../models/product";
 // import db from "../../utils/db";
 import axios from "axios";
@@ -14,6 +13,7 @@ import { useCartContext } from "../../context/cartContext";
 import CustomTextField from "../../components/customTextField";
 import { useSnackbar } from 'notistack'
 import { useUserContext } from "../../context/userContext";
+import { useStyles } from "../../utils/style";
 
 function ProductScreen({ product, reviews }) {
   const [cartContext, dispatch] = useCartContext()

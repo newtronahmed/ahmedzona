@@ -8,12 +8,12 @@ import Cookies from "js-cookie";
 import { useCartContext } from "../context/cartContext";
 import {useSnackbar} from 'notistack'
 function Payment() {
+  const classes= useStyles()
   const [paymentMethod, setValue] = React.useState('');
   const router = useRouter() 
   const [cart,dispatch] = useCartContext()
   const {shippingInfo} = cart
   const {enqueueSnackbar,closeSnackbar} = useSnackbar()
-const classes= useStyles()
   const handleChange = (event) => {
     setValue(event.target.value);
   };

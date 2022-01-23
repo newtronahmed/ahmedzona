@@ -5,9 +5,9 @@ import {FaSearch} from 'react-icons/fa'
 import NextLink from 'next/link'
 import {useRouter} from 'next/router'
 function SearchBox({handleChange,value}) {
+    const classes = useStyles();
     const [keyword,setKeyword] = useState('')
     const router = useRouter()
-  const classes = useStyles();
     const handleSearch = () =>{
         setKeyword('')
         console.log(keyword)

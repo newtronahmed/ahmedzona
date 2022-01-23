@@ -18,8 +18,8 @@ import {
   ClickAwayListener
 } from '@material-ui/core'
 import Cookies from "js-cookie";
-import { useStyles } from "../utils/style";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { useStyles } from "../utils/style";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import { useThemeContext } from "../context/themeContext";
@@ -30,8 +30,8 @@ import { FaCartArrowDown, FaSearch, FaUser } from "react-icons/fa";
 // import { ThemeContext } from "../context/themeContext";
 // import '../assets/style.css'
 export default function Layout({ children, title, description }) {
-  const classes = useStyles();
   const router = useRouter()
+  const classes = useStyles();
   // const [state,dispatch] = useContext(ThemeContext)
   const [state, dispatch] = useThemeContext()
   const [userContext, userDispatch] = useUserContext()

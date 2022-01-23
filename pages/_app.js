@@ -8,7 +8,7 @@ import UserContextProvider from '../context/userContext'
 import Router from 'next/router'
 import '../assets/style.css'
 import PageLoading from '../components/pageLoading'
-import Layout from '../components/layout'
+// import Layout from '../components/layout'
 function MyApp({ Component, pageProps }) {
     const [isLoading, setLoading] = useState(false)
     const start = () => {
@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
                 <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                     <PayPalScriptProvider>
                         <ThemeContextProvider>
-                            {isLoading ? <Layout><PageLoading /></Layout> : <Component {...pageProps} />}
+                            {isLoading ? <PageLoading /> : <Component {...pageProps} />}
                         </ThemeContextProvider>
                     </PayPalScriptProvider>
                 </SnackbarProvider>
