@@ -91,6 +91,7 @@ export const useStyles = makeStyles((theme)=>({
     cardImage:{
         objectFit: 'contain',
         height:'200px',
+        width:'100%',
     },
     card:{
         boxShadow:'rgba(0,0,0,0.1) 0px 0px 0px 1px',

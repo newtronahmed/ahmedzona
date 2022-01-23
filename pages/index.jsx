@@ -67,7 +67,7 @@ function HomePage({products}) {
         {
           products.map(each=>{
             return (
-              <Grid item key={each.name} sm={6} lg={4} >
+              <Grid item key={each.name} xs={12} sm={6} lg={4} >
                 <DetailCard data={each} user={user} favourites={favourites} setFavourites={setFavourites} />
               </Grid>
             )
