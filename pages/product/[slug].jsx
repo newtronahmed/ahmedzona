@@ -32,7 +32,7 @@ function ProductScreen({ product, reviews }) {
     dispatch({ type: "CHANGE_LOADING_STATE" })
     try {
       const { data } = await axios.get("/api/products/" + product._id)
-      console.log(data)
+      // console.log(data)
       dispatch({ type: "CHANGE_LOADING_STATE" })
       if (!data.product.countInStock > 0) {
         window.alert("Sorry this product is out of stock")

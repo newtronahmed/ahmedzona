@@ -16,7 +16,7 @@ function Cart() {
     const updateQuantity = async (item, quantity) => {
         const { data } = await axios.get("/api/products/" + item._id)
         // console.log(quantity)
-        if (!data.countInStock > 0) {
+        if (!data.product.countInStock > 0) {
             window.alert("Sorry ,  product out of stock")
             return
         }
