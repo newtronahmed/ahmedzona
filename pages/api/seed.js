@@ -18,8 +18,7 @@ handler.get(async function (req,res){
              Category.deleteMany(),
              Category.insertMany(data.categories),
              Brand.deleteMany(),
-             Brand.insertMany(data.brands)
-     
+             Brand.insertMany(data.brands) 
          ])
          res.send({message: "data seeded successfully"})  
     } catch (error) {
