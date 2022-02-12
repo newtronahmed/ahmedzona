@@ -35,7 +35,7 @@ function Cart() {
                 cart.cartItems.length === 0 ? (
                     <>
                         <div className={classes.emptyCartContainer}>
-                            <img src="/images/empty-cart.png" />
+                            <img src="/images/empty-cart.png" className="emptyCartImg" />
                         </div>
                         <div>
                             <NextLink href="/" passHref>
