@@ -11,7 +11,7 @@ export  default function DetailCard ({data, user, favourites=[],setFavourites}) 
   const router = useRouter()
   const addToCart = async (item) =>{
     const {data} = await axios.get("/api/products/"+item._id)
-    if(!data.countInStock > 0){
+    if(!data.product.countInStock > 0){
       window.alert("Sorry , product out of stock")
       return
     }

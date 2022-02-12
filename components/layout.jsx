@@ -53,24 +53,31 @@ export default function Layout({ children, title, description }) {
   const AppbarMenu = () => {
     console.log(anchorEl)
     return (
-      <span>
+      <div style={{display:'inline'}}>
         <Button
-          // id="nav-button"
-          aria-controls="navbar-menu"
+          id="nav-button"
+          aria-controls={Boolean(anchorEl) ? "nav-menu": undefined}
           aria-haspopup="true"
-          aria-expanded={Boolean(anchorEl) ? 'true' : undefined}
+          
+          aria-expanded={Boolean(anchorEl) ? true : undefined}
           onClick={handleNavbarMenuClick}
           className={classes.navbarButton}
+
         >
           {userContext.user.name}
         </Button>
-        <ClickAwayListener onClickAway={handleClose}>
+        {/* <ClickAwayListener onClickAway={handleClose}> */}
           <Menu
-            id="navbar-menu"
-            // getContentAnchorEl={null}
+            id="nav-menu"
+            // variant="menu"
+            // getContentAnchorEl={null} 
             // aria-labelledby="nav-button"
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "center" }}
+          getContentAnchorEl={null}
             anchorEl={anchorEl}
-            // transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+            // style={{right: "16px"}}
+            // transformOrigin={{ vertical: 'top', horizontal: 'rig' }}
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
@@ -79,8 +86,8 @@ export default function Layout({ children, title, description }) {
             <MenuItem onClick={handleClose} value="profile"><NextLink href="/user/orders" passHref><Link>Orders</Link></NextLink></MenuItem>
             <MenuItem onClick={handleLogout} value="logout">Logout</MenuItem>
           </Menu>
-        </ClickAwayListener>
-      </span>
+        {/* </ClickAwayListener> */}
+      </div>
     )
   }
   const handleLogout = () => {
@@ -150,11 +157,9 @@ export default function Layout({ children, title, description }) {
                 </IconButton>
               </NextLink>
               <NextLink href="/cart" passHref>
-                <Link>
                   {
-                    cart.cartItems.length > 0 ? <IconButton ><Badge badgeContent={cart.cartItems.length} ><FaCartArrowDown size={18} /> </Badge> </IconButton> : <IconButton><FaCartArrowDown color="#fff" size={18} /></IconButton>
+                    cart.cartItems.length > 0 ? <IconButton ><Badge badgeContent={cart.cartItems.length} ><FaCartArrowDown size={18} /> </Badge> </IconButton> : <IconButton><FaCartArrowDown fill="#fff" color="#fff" size={18} /></IconButton>
                   }
-                </Link>
               </NextLink>
               {
                 userContext.user ? <AppbarMenu /> : (<NextLink href="/login" passHref>

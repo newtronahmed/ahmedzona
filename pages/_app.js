@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
                 <SnackbarProvider anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
                     <PayPalScriptProvider>
                         <ThemeContextProvider>
-                            {isLoading ? <PageLoading /> : <Component {...pageProps} />}
+                            {isLoading ? <PageLoading ><Component {...pageProps} /> </PageLoading> : <Component {...pageProps} />}
                         </ThemeContextProvider>
                     </PayPalScriptProvider>
                 </SnackbarProvider>

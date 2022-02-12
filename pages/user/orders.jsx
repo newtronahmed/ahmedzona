@@ -49,7 +49,7 @@ function Orders() {
                     <TableBody>
                         {
                             orders.map(each => (
-                                <TableRow>
+                                <TableRow key={each._id}>
                                     <TableCell>
                                         {each._id}
                                     </TableCell>

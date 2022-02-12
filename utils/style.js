@@ -59,13 +59,6 @@ export const useStyles = makeStyles((theme)=>({
         display:'flex',
         justifyContent:'space-between'
     },
-    loadingContainer:{
-        height:'90vh',
-        width:'100%',
-        display:'flex',
-        justifyContent:'center',
-        alignItems:'center',
-    },
     authLoginButton:{
         '& span':{
             margin:'0 5px',

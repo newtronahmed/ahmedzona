@@ -35,13 +35,15 @@ function ProductScreen({ product, reviews }) {
       // console.log(data)
       dispatch({ type: "CHANGE_LOADING_STATE" })
       if (!data.product.countInStock > 0) {
-        window.alert("Sorry this product is out of stock")
+        // window.alert("Sorry this product is out of stock")
+        enqueueSnackbar("Sorry this product is out of stock",{variant: "warning"})
         return;
       }
       let itemExists = cartContext.cartItems.find(x => x._id === product._id)
       let quantity = itemExists ? itemExists.quantity + 1 : 1
 
       dispatch({ type: "ADD_TO_CART", payload: { ...product, quantity } })
+      enqueueSnackbar("Added to cart successfully",{variant:"success"})
       router.push("/cart")
     } catch (e) {
       console.log(e)
