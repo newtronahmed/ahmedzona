@@ -6,6 +6,10 @@ body {
   background-color: white !important;
 }
 
+.emptyCartImg {
+  max-width: 100%;
+}
+
 #nav-menu .MuiPaper-root {
   right: 16px !important;
   left: auto !important;

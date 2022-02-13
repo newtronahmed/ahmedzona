@@ -57,7 +57,7 @@ function Login() {
   return (
     <>
       <Layout title="Login">
-        <Grid container >
+        <Grid container justifyContent="center"  >
           <Grid item sm={5}>
             <Paper>
               <Typography component="h1" variant="h1" align="center">
